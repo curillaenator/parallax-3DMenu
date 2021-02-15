@@ -1,0 +1,54 @@
+@import "../../pallete.scss";
+
+@mixin button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16vw;
+  height: 2.5vw;
+  border: none;
+  background-color: $brand2;
+
+  outline: none;
+  color: $whiteText;
+  text-transform: uppercase;
+  font-size: 0.8vw;
+  font-weight: 700;
+  cursor: pointer;
+  &:hover {
+    background-color: $brandHover;
+  }
+  &:active {
+    background-color: $brand2;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .item {
+    @include button;
+  }
+  .active {
+    background-color: $brandActive;
+    &:hover {
+      background-color: $brandActiveHover;
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 4vw;
+    left: 0;
+    .button {
+      @include button;
+      margin-bottom: 0.5vw;
+      background-color: $brandOpaque;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

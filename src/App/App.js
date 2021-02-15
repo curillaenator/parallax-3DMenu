@@ -1,31 +1,50 @@
 import { useState } from "react";
+import { menuContent } from "./config";
+import Menu from "./Menu/Menu";
 import styles from "./App.module.scss";
+import bg from "../Assets/Image/bg.jpg";
 
-const ThirdPlan = ({ title, pos }) => {
+const ThirdPlan = ({ pos }) => {
   const style = {
-    left: pos.cX - pos.posX / 20,
-    top: pos.cY - pos.posY / 20,
+    left: pos.cX + pos.posX / 20,
+    top: pos.cY + pos.posY / 20,
     transform: `
-      translate(-50%, -50%) 
-      rotate3d(0, 1, 0, ${(pos.posX / pos.cX) * 10}deg)
-      rotate3d(-1, 0, 0, ${(pos.posY / pos.cY) * 10}deg)
+      translate(-50%, -50%)
+      rotate3d(0, 1, 0, ${(pos.posX / pos.cX) * 8}deg)
+      rotate3d(-1, 0, 0, ${(pos.posY / pos.cY) * 8}deg)
     `,
   };
   return (
     <div className={styles.third} style={style}>
+      <img src={bg} alt="background" />
+    </div>
+  );
+};
+const SecondPlan = ({ title, pos }) => {
+  const style = {
+    left: pos.cX, 
+    top: pos.cY, 
+    transform: `
+      translate(-50%, -50%) 
+      rotate3d(0, 1, 0, ${(pos.posX / pos.cX) * 8}deg)
+      rotate3d(-1, 0, 0, ${(pos.posY / pos.cY) * 8}deg)
+    `,
+  };
+  return (
+    <div className={styles.second} style={style}>
       <p>{title}</p>
     </div>
   );
 };
-const SecondPlan = ({ title, offset, pos }) => {
-  const Q = 7;
+const FirstPlan = ({ offset, pos, menu }) => {
+  const Q = 14;
   const style = {
     left: pos.cX + offset.X - pos.posX / Q,
     top: pos.cY + offset.Y - pos.posY / Q,
   };
   return (
-    <div className={styles.second} style={style}>
-      <p>{title}</p>
+    <div className={styles.first} style={style}>
+      <Menu title={menu.title} menu={menu} />
     </div>
   );
 };
@@ -37,7 +56,8 @@ const App = () => {
     posX: 0,
     posY: 0,
   };
-  const centerDistance = 0.65;
+  const centerDistanceX = 0.5;
+  const centerDistanceY = 0.62;
 
   const [pos, setPos] = useState(initialPos);
 
@@ -53,39 +73,40 @@ const App = () => {
 
   return (
     <div className={styles.container} onMouseMove={mouseHandler}>
-      <SecondPlan
-        title="2ndPlan"
+      <ThirdPlan pos={pos} />
+      <SecondPlan title="3DMenu" pos={pos} />
+      <FirstPlan
         offset={{
-          X: -initialPos.cX * centerDistance,
-          Y: -initialPos.cY * centerDistance,
+          X: -initialPos.cX * centerDistanceX,
+          Y: -initialPos.cY * centerDistanceY,
         }}
         pos={pos}
+        menu={menuContent.menu1}
       />
-      <SecondPlan
-        title="2ndPlan"
+      <FirstPlan
         offset={{
-          X: initialPos.cX * centerDistance,
-          Y: -initialPos.cY * centerDistance,
+          X: initialPos.cX * centerDistanceX,
+          Y: -initialPos.cY * centerDistanceY,
         }}
         pos={pos}
+        menu={menuContent.menu2}
       />
-      <SecondPlan
-        title="2ndPlan"
+      <FirstPlan
         offset={{
-          X: -initialPos.cX * centerDistance,
-          Y: initialPos.cY * centerDistance,
+          X: -initialPos.cX * centerDistanceX,
+          Y: initialPos.cY * centerDistanceY * 0.7,
         }}
         pos={pos}
+        menu={menuContent.menu3}
       />
-      <SecondPlan
-        title="2ndPlan"
+      <FirstPlan
         offset={{
-          X: initialPos.cX * centerDistance,
-          Y: initialPos.cY * centerDistance,
+          X: initialPos.cX * centerDistanceX,
+          Y: initialPos.cY * centerDistanceY * 0.7,
         }}
         pos={pos}
+        menu={menuContent.menu4}
       />
-      <ThirdPlan title="3DMenu" pos={pos} />
     </div>
   );
 };
