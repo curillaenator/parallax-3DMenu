@@ -5,9 +5,10 @@ import styles from "./App.module.scss";
 import bg from "../Assets/Image/bg.jpg";
 
 const ThirdPlan = ({ pos }) => {
+  const Q = 20; // rate of parallax movement
   const style = {
-    left: pos.cX + pos.posX / 20,
-    top: pos.cY + pos.posY / 20,
+    left: pos.cX + pos.posX / Q,
+    top: pos.cY + pos.posY / Q,
     transform: `
       translate(-50%, -50%)
       rotate3d(0, 1, 0, ${(pos.posX / pos.cX) * 8}deg)
@@ -22,8 +23,8 @@ const ThirdPlan = ({ pos }) => {
 };
 const SecondPlan = ({ title, pos }) => {
   const style = {
-    left: pos.cX, 
-    top: pos.cY, 
+    left: pos.cX,
+    top: pos.cY,
     transform: `
       translate(-50%, -50%) 
       rotate3d(0, 1, 0, ${(pos.posX / pos.cX) * 8}deg)
@@ -37,7 +38,7 @@ const SecondPlan = ({ title, pos }) => {
   );
 };
 const FirstPlan = ({ offset, pos, menu }) => {
-  const Q = 14;
+  const Q = 14; // rate of parallax movement
   const style = {
     left: pos.cX + offset.X - pos.posX / Q,
     top: pos.cY + offset.Y - pos.posY / Q,
